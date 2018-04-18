@@ -74,4 +74,42 @@ Custom Python code to generate the configurations for all the various hosts to b
 
 ---
 
+# [fit] There has to be a
+# [fit] better way
+
+---
+
+# [fit] I :heart: ZFS
+
+---
+
+What if there were a way for all of our VMs and Jails to be backed by a filesystem or block device that supported
+
+* snapshots
+* replication
+* compression
+* data integrity
+
+---
+
+# [fit] FreeBSD
+## (or any OS that supports ZFS) just works:tm:
+
+and we are a FreeBSD shop already!
+
+---
+
+# Goals
+
+1. Reliable
+1. Grainular
+1. Integrity
+1. Few Dependancies
+1. Easy to Configure
+1. Runs with little care and feeding
+
+---
+
+Show number of config lines comparison
+
 
