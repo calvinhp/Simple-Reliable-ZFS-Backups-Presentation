@@ -1,13 +1,22 @@
-theme: Franziska, 9
-footer: Replacing Traditional Backup Systems with ZFS — ZFS User Conf 2018
+theme: Letters from Sweden, 6
+footer: Replacing Traditional Backup Systems with ZFS — _**#ZFS**_ User Conf 2018 — [@calvinhp](https://twitter.com/calvinhp)
 autoscale: true
 
 [.hide-footer]
 
 # Replacing Traditional Backup Systems with ZFS
-## ZFS User Conf 2018
+## _**#ZFS**_ User Conf 2018
 ## Calvin Hendryx-Parker
+### [@calvinhp](https://twitter.com/calvinhp)
 ### Six Feet Up
+
+---
+
+![fit](https://sixfeetup.com/company/sixielife-1.jpg)
+
+^ Since 1999
+  Has always run a cage/rack someplace to host others data
+  Successfully restoring from customers mistakes
 
 ---
 
@@ -20,7 +29,7 @@ autoscale: true
 
 ![right filtered](https://c1.staticflickr.com/5/4147/5055926716_4203bfbd37_b.jpg)
 
-# [fit] Backstory
+# [fit] Back Story
 
 AMANDA 1999-2012
 Bacula 2007, 2012-2018
@@ -50,7 +59,7 @@ Uses native tools (tar, dump)
 
 # First Love :broken_heart: 
 
-^ Stopped using Amanda due to the age of our current pacakges installed.
+^ Stopped using Amanda due to the age of our current packages installed.
   They didn't support ZFS well at the time.
   The upgrade to AMANDA 3 was rough and did not inspire confidence due to all the moving pieces, changed uid and perms, timeouts, random hangs
   AMANDA would commonly bring down some machines that were short on disk space
@@ -128,6 +137,14 @@ Uses native tools (tar, dump)
 
 ---
 
+![](https://c1.staticflickr.com/9/8506/8538521014_2cdf01ff0e_b.jpg)
+
+# [fit] And did them at a _**Block**_ level?
+
+^ What if there were a way for all of our VMs and Jails to be backed by a filesystem or block device that supported
+
+---
+
 # [fit] I :heart: ZFS
 
 ---
@@ -142,9 +159,9 @@ and we are a FreeBSD shop already!
 # Goals
 
 1. Reliable
-1. Grainular
+1. Granular
 1. Integrity
-1. Few Dependancies
+1. Few Dependencies
 1. Easy to Configure
 1. Runs with little care and feeding
 
@@ -185,13 +202,43 @@ weekly_zfsnap_delete_enable="YES"
 
 ---
 
+# Per Trusted Server
+
 ```console
 $ sudo crontab -l -u root
 # Lines below here are managed by Salt, do not edit
 @daily          /usr/local/sbin/zxfer -dFkv -g 376 -T root@sfupstor01 -R zroot/jails storage/sfup-jail01
 ```
 
-^ TODO: need to look up the flags on that command
+^ -d Delete snapshots on dest
+  -F Force a rollback of the file system
+  -k Bac(k)up property mode
+  -v verbose
+  -g (g)randfather protection.
+  -T Target
+  -R recursive datasets
+
+---
+
+# Everything Else
+
+```bash
+for quad in ${QUADS[*]}
+do
+    DAILY=$(ssh $quad zfs list -t snapshot | grep daily-$(date +%Y-%m-%d) | awk '{print $1}' | grep -e "zroot/[a-z]\{3,5\}[-]")
+
+    echo $(date) "Running Daily Backup from $quad" >> $LOG
+    for dataset in ${DAILY[*]}
+    do
+        ssh $quad zfs send -R -I base $dataset | zfs receive -vdF storage/backups/bhyve-vms >> $LOG
+    done
+    echo $(date) "Daily Backup Complete" >> $LOG
+
+done
+```
+
+^ Now we don't need to put our keys on a random remote server
+  just put the pub key for the backup machine on there
 
 ---
 
@@ -199,11 +246,24 @@ $ sudo crontab -l -u root
 
 ---
 
+# [fit] Bonus!
+
+^ Off site backups
+
+---
+
 ![fit](freenas-replication-tasks.png)
 
 ---
 
-# Photo Credits
+# [fit] Questions_**?**_
+
+### <calvin@sixfeetup.com>
+### [@calvinhp](https://twitter.com/calvinhp)
+
+<br/>
+
+### Photo Credits
 
 * <https://www.flickr.com/photos/momentsnotice/12889668265>
 * <https://www.flickr.com/photos/tom1231/5055926716>
@@ -212,3 +272,4 @@ $ sudo crontab -l -u root
 * <https://www.baculasystems.com/architecture>
 * <https://www.flickr.com/photos/mrpinkeyes/7276108196>
 * <https://www.flickr.com/photos/nsub1/3537823179>
+* <https://www.flickr.com/photos/pmillera4/8538521014>
