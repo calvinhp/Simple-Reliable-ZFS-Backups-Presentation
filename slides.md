@@ -200,6 +200,10 @@ weekly_zfsnap_recursive_fs="zroot/jails"
 weekly_zfsnap_delete_enable="YES"
 ```
 
+^ now we don't need clients on any machines
+  able to only worry about the hypervisors
+  everything is a dataset or zvol for each client/server/block device
+
 ---
 
 # Per Trusted Server
