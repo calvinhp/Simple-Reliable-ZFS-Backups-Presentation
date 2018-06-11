@@ -1,11 +1,11 @@
 theme: Letters from Sweden, 6
-footer: Replacing Traditional Backup Systems with ZFS — _**#ZFS**_ User Conf 2018 — [@calvinhp](https://twitter.com/calvinhp)
+footer: Replacing Traditional Backup Systems with ZFS — _**#BSDCan**_ 2018 — [@calvinhp](https://twitter.com/calvinhp)
 autoscale: true
 
 [.hide-footer]
 
 # Replacing Traditional Backup Systems with ZFS
-## _**#ZFS**_ User Conf 2018
+## _**#BSDCan**_ 2018
 ## Calvin Hendryx-Parker
 ### [@calvinhp](https://twitter.com/calvinhp)
 ### Six Feet Up
@@ -24,6 +24,8 @@ autoscale: true
 
 > Backups will be done when it is easy
 -- me
+
+^ and importantatly simple, easy should be considered a bad word
 
 ---
 
@@ -92,6 +94,8 @@ Uses native tools (tar, dump)
 ^ FSFE, Free Software Foundation Europe
   Block level available in the Enterprise version
   Enterprise version 5.1 released in 2011 included Incremental/Differential Block Level Difference Backup, but it is not in the Open Source version still to this day.
+
+^ This is Open Core and a terrible example of why it isn't friendly.
 
 [^1]: <https://blog.bacula.org/110/>
 
